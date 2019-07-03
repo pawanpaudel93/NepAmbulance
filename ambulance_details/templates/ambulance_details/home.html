@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content%}
+    Please Login to add ambulance details or you can simply look for ambulance numbers without registration.......
+    <a href="{% url 'login' %}">LOGIN HERE</a><br>
+    OR<br>
+    <a href="{% url 'provinces' %}">View Provinces</a>
+{% endblock %}

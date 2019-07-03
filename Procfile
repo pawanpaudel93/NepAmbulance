@@ -1,0 +1,1 @@
+web: waitress-serve --port=$PORT NepAmbulance.wsgi:application
