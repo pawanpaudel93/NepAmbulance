@@ -1,21 +1,33 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'NepAmbulance/css/login.css' %}" type="text/css"/>
+{% endblock %}
 
 {% block content %}
-  <h2>Sign up</h2>
-  <form method="post">
-    {% csrf_token %}
-    {% for field in form %}
-      <p>
-        {{ field.label_tag }}<br>
-        {{ field }}
-        {% if field.help_text %}
-          <small style="color: grey">{{ field.help_text }}</small>
-    {% endif %}
-    {% for error in field.errors %}
-          <p style="color: red">{{ error }}</p>
-        {% endfor %}
-      </p>
-    {% endfor %}
-    <button type="submit">Sign up</button>
-  </form>
+      <div class="container">
+        <section id="content">
+            <form method="post">
+                <h1>Login Form</h1>
+                {% csrf_token %}
+                {% for field in form %}
+                  <p>
+                    {{ field.label_tag }}<br>
+                    <div>{{ field }}</div>
+                    {% if field.help_text %}
+                      <small style="color: grey">{{ field.help_text }}</small>
+                {% endif %}
+                {% for error in field.errors %}
+                      <p style="color: red">{{ error }}</p>
+                    {% endfor %}
+                  </p>
+                {% endfor %}
+                <div>
+                    <input type="submit" value="Log in" />
+                    <a href="#">Lost your password?</a>
+                    <a href="{% url 'signup' %}">Sign up</a>
+                </div>
+              </form>
+        </section><!-- content -->
+    </div><!-- container -->
 {% endblock %}

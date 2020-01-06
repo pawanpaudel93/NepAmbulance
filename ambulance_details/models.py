@@ -2,11 +2,14 @@ from django.db import models
 from django.contrib.auth.models import User
 from phonenumber_field.modelfields import PhoneNumberField
 
+
 class Province(models.Model):
     no = models.IntegerField()
-    
+    image = models.ImageField(upload_to='province_image', default="province_image/default.jpg", blank=True)
+
     def __str__(self):
         return "{} - {}".format("Province", self.no)
+
 
 class District(models.Model):
     province = models.ForeignKey(Province, on_delete=models.CASCADE, related_name='districts')
@@ -15,10 +18,11 @@ class District(models.Model):
     def __str__(self):
         return "{}".format(self.name)
 
+
 # class City(models.Model):
 #     district = models.ForeignKey(District, on_delete=models.CASCADE, related_name='citys')
 #     name = models.CharField(max_length=100)
-    
+
 #     def __str__(self):
 #         return "{}".format(self.name)
 

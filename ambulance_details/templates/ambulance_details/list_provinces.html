@@ -1,40 +1,24 @@
 {% extends 'base.html' %}
+{% load static %}
+{%block stylesheet %}
+        <link rel="stylesheet" href="{% static 'NepAmbulance/css/nav.css' %}" type="text/css"/>
+{% endblock %}
+
 {% block content%}
-<div class="ui centered grid">
-    <div class="fifteen wide column">
-        {% for province in provinces%}
-            <a class="btn-draw" href="{% url 'districts' province.no %}" style="font-size: 1.5em;"><span>Province-{{province.no}}</span></a><br><br>
-        {% endfor %}
+    <div class="ui center aligned container">
+        <div class="ui three column grid">
+            {% for province in provinces%}
+                <div class="column">
+                    <div class="ui card">
+                      <a class="image img-circle" href="{% url 'districts' province.no %}" style="font-size: 1.5em;">
+                        <img src="{{ province.image.url}}">
+                      </a>
+                      <div class="content">
+                        <label class="header"><span>Province-{{province.no}}</span></label>
+                      </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
-</div>
-{% if user.is_authenticated %}
- <!-- Trigger the modal with a button -->
-<button type="button" class="ui inverted red button" data-toggle="modal" data-target="#myModal">ADD AMBULANCE</button>
-
-
-  <!-- modal -->
-  <div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-            <h3 class="modal-title">Add Ambulance Details</h3>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body">
-          <form method="post" enctype="multipart/form-data" novalidate>
-              {% csrf_token %}
-              <form method="post" enctype="multipart/form-data">
-                  {% csrf_token %}
-                  {% include 'form-template.html' %}
-              <button class="button button1">ADD</button>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-  </div>
-{% endif %}
 {% endblock %}

@@ -5,7 +5,8 @@ venv
 **/media/
 *.py[cod]
 *.env
-local.py
 *.http
 .vscode/
 */migrations/
+staticfiles
+images

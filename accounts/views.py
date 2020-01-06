@@ -8,6 +8,7 @@ from django.contrib.auth import login
 from .tokens import account_activation_token
 from .forms import SignUpForm
 
+
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -29,8 +30,10 @@ def signup(request):
         form = SignUpForm()
     return render(request, 'accounts/signup.html', {'form': form})
 
+
 def account_activation_sent(request):
     return render(request, 'accounts/account_activation_sent.html')
+
 
 def activate(request, uidb64, token):
     try:

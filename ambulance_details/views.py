@@ -1,10 +1,8 @@
 from django.shortcuts import render
-from rest_framework import generics
+# from rest_framework import generics
 from django.views import generic
-import requests, json
-from django.urls import reverse
-
-# from .models import Ambulance, Ward, City, District, Province
+# import requests, json
+# from django.urls import reverse
 from .models import Ambulance, District, Province
 from .forms import AmbulanceCreateForm
 
@@ -30,7 +28,7 @@ from .forms import AmbulanceCreateForm
 #             }
 #             ambulance.append(detail)
 #         return render(request, self.template_name, {'datas': ambulance, 'form': form})
-    
+
 #     def post(self, request, *args, **kwargs):
 #         form = AmbulanceCreateForm(request.POST)
 #         try:
@@ -68,29 +66,33 @@ from .forms import AmbulanceCreateForm
 class Home(generic.TemplateView):
     template_name = 'ambulance_details/home.html'
 
-class ListProvinces(generic.TemplateView):
+
+class ListProvinces(generic.ListView):
     template_name = 'ambulance_details/list_provinces.html'
-  
-    def get(self, request, *args, **kwargs):
-        form = AmbulanceCreateForm()
-        provinces = Province.objects.all()
-        return render(request, self.template_name, {'provinces': provinces, 'form': form})
-    
-    def post(self, request, *args, **kwargs):
-        form = AmbulanceCreateForm(request.POST)
-        if form.is_valid():
-            form.user = request.user.pk
-            form.save()
-        provinces = Province.objects.all()
-        return render(request, self.template_name, {'provinces': provinces, 'form': form})
+
+    context_object_name = 'provinces'
+
+    def get_queryset(self):
+        return Province.objects.all()
 
 
-class ListDistricts(generic.ListView):
+class ListDistricts(generic.TemplateView):
     template_name = 'ambulance_details/list_districts.html'
     context_object_name = 'districts'
 
-    def get_queryset(self):
-        return District.objects.filter(province__no=self.kwargs['province']).order_by('name')
+    def get(self, request, *args, **kwargs):
+        form = AmbulanceCreateForm(kwargs['province'])
+        districts = District.objects.filter(province__no=self.kwargs['province']).order_by('name')
+        return render(request, self.template_name, {'districts': districts, 'form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = AmbulanceCreateForm(kwargs['province'], request.POST)
+        if form.is_valid():
+            form.instance.user = request.user
+            form.save()
+        districts = District.objects.filter(province__no=self.kwargs['province']).order_by('name')
+        return render(request, self.template_name, {'districts': districts, 'form': form})
+
 
 # class ListCities(generic.ListView):
 #     template_name = 'ambulance_details/list_cities.html'
@@ -111,4 +113,4 @@ class ListAmbulances(generic.ListView):
     context_object_name = 'ambulances'
 
     def get_queryset(self):
-        return  Ambulance.objects.filter(district__name=self.kwargs['district'])
+        return Ambulance.objects.filter(district__name=self.kwargs['district'])

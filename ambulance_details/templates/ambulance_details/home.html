@@ -1,7 +1,61 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content%}
-    Please Login to add ambulance details or you can simply look for ambulance numbers without registration.......
-    <a href="{% url 'login' %}">LOGIN HERE</a><br>
-    OR<br>
-    <a href="{% url 'provinces' %}">View Provinces</a>
+    <div class="page-header header-filter" data-parallax="true"
+         style="background-image: url({% static 'NepAmbulance/images/ambulance.png' %}); ">
+        <div class="container">
+            <div class="row">
+    			<div class="col-md-6">
+    				<h1 class="title">NepAmbulance</h1>
+                    <h4>Saving life is above all and so remember us for finding ambulances on emergency nearby.</h4>
+    			</div>
+            </div>
+        </div>
+    </div>
+    <div class="main main-raised">
+    	<div class="container">
+        	<div class="section text-center">
+                <div class="row">
+                    <div class="col-md-8 ml-auto mr-auto">
+                        <h2 class="title">Let&apos;s talk about NepAmbulance</h2>
+                        <h5 class="description">NepAmbulane is a service which provides the phone number of the ambulance which lies nearby. You can register and login to add the ambulance details or you can simply search for the ambulance in the nearby areas.</h5>
+                    </div>
+                </div>
+
+    			<div class="features">
+    				<div class="row">
+    					<div class="col-md-4">
+                            <div class="info">
+    							<div class="icon icon-info">
+    								<i class="material-icons">chat</i>
+    							</div>
+                                <h4 class="info-title"><a href="{%url 'signup' %}">Sign up</a></h4>
+    							<p>Sign up to be able to add ambulance details or simply search for ambulance details.</p>
+    						</div>
+    					</div>
+
+    					<div class="col-md-4">
+    						<div class="info">
+    							<div class="icon icon-success">
+    								<i class="material-icons">chat</i>
+    							</div>
+                                <h4 class="info-title"><a href="{% url 'login' %}">Sign in</a></h4>
+    							<p>Sign in to add ambulance details.</p>
+    						</div>
+    					</div>
+
+    					<div class="col-md-4">
+    						<div class="info">
+    							<div class="icon icon-danger">
+    								<i class="material-icons">fingerprint</i>
+    							</div>
+                                <h4 class="info-title"><a href="{% url 'provinces' %}">Search Ambulances</a></h4>
+    							<p>Search for the ambulances nearby.</p>
+    						</div>
+    					</div>
+                    </div>
+    			</div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -5,7 +5,7 @@ import sys
 
 
 def main():
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'NepAmbulance.settings.base')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'NepAmbulance.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
