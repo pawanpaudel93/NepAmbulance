@@ -2,7 +2,7 @@
 {% load static %}
 
 {%block stylesheet %}
-        <link rel="stylesheet" href="{% static 'NepAmbulance/css/nav.css' %}" type="text/css"/>
+        <link rel="stylesheet" href="{% static 'NepAmbulance/css/login.css' %}" type="text/css"/>
 {% endblock %}
 
 {% block content%}
@@ -29,6 +29,7 @@
                 {% endfor %}
             </div>
         </div>
+        <br><br>
     {% if user.is_authenticated %}
          <!-- Trigger the modal with a button -->
         <button type="button" class="ui inverted red button" data-toggle="modal" data-target="#myModal">ADD AMBULANCE</button>
@@ -57,5 +58,12 @@
                 </div>
               </div>
           </div>
+    {% endif %}
+    {% if error %}
+          <script>
+              window.onload=function(){
+                document.querySelector("body > button").click();
+            };
+          </script>
     {% endif %}
 {% endblock %}

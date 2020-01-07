@@ -41,7 +41,7 @@ class Ambulance(models.Model):
     ward_name = models.CharField(max_length=100)
     ward_no = models.IntegerField()
     name = models.CharField(max_length=100, blank=False)
-    owner_name = models.CharField(max_length=100, blank=True)
+    owner_name = models.CharField(max_length=100, blank=False)
     owner_email = models.EmailField(blank=True)
     phone_number = PhoneNumberField()
     telephone_number = PhoneNumberField(blank=True)

@@ -86,12 +86,14 @@ class ListDistricts(generic.TemplateView):
         return render(request, self.template_name, {'districts': districts, 'form': form})
 
     def post(self, request, *args, **kwargs):
-        form = AmbulanceCreateForm(kwargs['province'], request.POST)
+        form = AmbulanceCreateForm(kwargs['province'], request.POST or None)
+        districts = District.objects.filter(province__no=self.kwargs['province']).order_by('name')
         if form.is_valid():
             form.instance.user = request.user
             form.save()
-        districts = District.objects.filter(province__no=self.kwargs['province']).order_by('name')
-        return render(request, self.template_name, {'districts': districts, 'form': form})
+            return render(request, self.template_name, {'districts': districts, 'form': form})
+        else:
+            return render(request, self.template_name, {'districts': districts, 'form': form, 'error': True})
 
 
 # class ListCities(generic.ListView):
